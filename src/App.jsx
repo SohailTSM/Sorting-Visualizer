@@ -1,6 +1,7 @@
 import { RecoilRoot } from 'recoil';
 import Navbar from './components/Navbar';
 import Visualizer from './components/Visualizer';
+import './App.css';
 
 function App() {
   return (

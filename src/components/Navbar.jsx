@@ -3,16 +3,26 @@ import { useRecoilState } from 'recoil';
 import { algorithmState } from '../atoms/algorithmState';
 import { sortingState } from '../atoms/sortingState';
 import { arraySizeState } from '../atoms/arraySizeState';
+import { generateNewArray } from '../helper/array';
+import { arrayState } from '../atoms/arrayState';
 const Navbar = () => {
   const [algorithm, setAlgorithm] = useRecoilState(algorithmState);
   const [isSorting, setIsSorting] = useRecoilState(sortingState);
   const [arraySize, setArraySize] = useRecoilState(arraySizeState);
+  const [array, setArray] = useRecoilState(arrayState);
 
   const sort = () => {
     if (isSorting) {
       return;
     }
     setIsSorting(true);
+  };
+
+  const generate = () => {
+    if (isSorting) {
+      return;
+    }
+    setArray(generateNewArray(arraySize));
   };
 
   const changeArraySize = (e) => {
@@ -33,6 +43,7 @@ const Navbar = () => {
               ? 'text-red-600'
               : `hover:text-blue-600 hover:cursor-pointer hover:scale-110`
           }
+          onClick={generate}
         >
           Generate New Array
         </div>

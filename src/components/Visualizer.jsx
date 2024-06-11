@@ -19,7 +19,7 @@ const Visualizer = () => {
     <div className='flex gap-1 border-b-2 border-slate-800 h-full  mb-8 mx-16 justify-center content-center items-end'>
       {array.map((element, index) => {
         return (
-          <div>
+          <div key={index}>
             {array.length < 40 ? (
               <div className='text-black text-center font-medium text-base'>
                 {element}
@@ -33,7 +33,6 @@ const Visualizer = () => {
                 width: maxWidth / array.length - 4 + 'px',
                 height: (element * maxHeight) / max + 'px',
               }}
-              key={index}
             ></div>
           </div>
         );
