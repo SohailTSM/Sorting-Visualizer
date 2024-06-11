@@ -2,16 +2,21 @@ import Title from './Title';
 import { useRecoilState } from 'recoil';
 import { algorithmState } from '../atoms/algorithmState';
 import { sortingState } from '../atoms/sortingState';
-
+import { arraySizeState } from '../atoms/arraySizeState';
 const Navbar = () => {
   const [algorithm, setAlgorithm] = useRecoilState(algorithmState);
   const [isSorting, setIsSorting] = useRecoilState(sortingState);
+  const [arraySize, setArraySize] = useRecoilState(arraySizeState);
 
   const sort = () => {
     if (isSorting) {
       return;
     }
     setIsSorting(true);
+  };
+
+  const changeArraySize = (e) => {
+    setArraySize(e.target.value);
   };
 
   return (
@@ -40,6 +45,10 @@ const Navbar = () => {
             id='size'
             className='accent-lightblue hover:accent-blue-600'
             disabled={isSorting}
+            min={4}
+            max={150}
+            value={arraySize}
+            onChange={changeArraySize}
           />
         </div>
         <div className=''>|</div>
