@@ -12,10 +12,18 @@ export const bubbleSort = async (arr) => {
     for (j = 0; j < n - i - 1; j++) {
       if (arr[j] > arr[j + 1]) {
         await swap(arr, j, j + 1);
-        moves.push([j, j + 1, SWAP, pivot]);
+        if (j + 1 == n - i - 1) {
+          moves.push([j, j + 1, SWAP, pivot, 'D']);
+        } else {
+          moves.push([j, j + 1, SWAP, pivot]);
+        }
         swapped = true;
       } else {
-        moves.push([j, j + 1, !SWAP, pivot]);
+        if (j + 1 == n - i - 1) {
+          moves.push([j, j + 1, !SWAP, pivot, 'D']);
+        } else {
+          moves.push([j, j + 1, !SWAP, pivot]);
+        }
       }
     }
     if (!swapped) {

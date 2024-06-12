@@ -72,9 +72,27 @@ const Navbar = () => {
             });
           });
         }, intervalTime);
+        setTimeout(() => {
+          if (move[4] == 'D') {
+            setArray((arr) => {
+              return arr.map((element, index) => {
+                if (index == move[1]) {
+                  return { ...element, classType: 2 };
+                } else {
+                  return element;
+                }
+              });
+            });
+          }
+        }, intervalTime);
         counter++;
       } else {
         setTimeout(() => {
+          setArray((arr) => {
+            return arr.map((element) => {
+              return { ...element, classType: 2 };
+            });
+          });
           setIsSorting(false);
           clearInterval(interval);
         }, 100);
@@ -92,8 +110,6 @@ const Navbar = () => {
     switch (algorithm) {
       case 'B':
         moves = await bubbleSort(list);
-        break;
-      case 'M':
         break;
       case 'Q':
         moves = await quickSort(list);
@@ -166,24 +182,6 @@ const Navbar = () => {
             }}
           >
             Bubble Sort
-          </span>{' '}
-          &nbsp; &nbsp; &nbsp;-&nbsp; &nbsp; &nbsp;
-          <span
-            className={`${
-              algorithm == 'M'
-                ? 'scale-110 text-lightblue'
-                : isSorting
-                ? 'text-red-600'
-                : 'hover:text-blue-600 hover:cursor-pointer hover:scale-110'
-            }`}
-            onClick={() => {
-              if (isSorting) {
-                return;
-              }
-              setAlgorithm('M');
-            }}
-          >
-            Merge Sort
           </span>{' '}
           &nbsp; &nbsp; &nbsp;-&nbsp; &nbsp; &nbsp;
           <span

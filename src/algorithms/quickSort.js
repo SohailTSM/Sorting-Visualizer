@@ -20,13 +20,18 @@ const partition = (arr, low, high, moves) => {
       moves.push([i, j, SWAP, null]);
     }
   }
-  swap(arr, low, j);
-  moves.push([low, j, SWAP, null]);
+  if (low != j) {
+    swap(arr, low, j);
+    moves.push([low, j, SWAP, null, 'D']);
+  } else {
+    swap(arr, low, j);
+    moves.push([low, j, !SWAP, null, 'D']);
+  }
   return j;
 };
 
 const qs = (arr, low, high, moves) => {
-  if (low > high) {
+  if (low >= high) {
     return;
   }
   let pIndex = partition(arr, low, high, moves);

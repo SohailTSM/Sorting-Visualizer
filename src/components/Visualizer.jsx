@@ -45,7 +45,9 @@ const Visualizer = () => {
           <div key={index}>
             {array.length < 40 ? (
               <div className='flex flex-col text-black text-center font-medium text-base'>
-                <span>{element.classType == 4 ? 'PIVOT' : ''}</span>
+                <span className='text-xs'>
+                  {element.classType == 4 ? 'PIVOT' : ''}
+                </span>
                 {element.value}
               </div>
             ) : (
