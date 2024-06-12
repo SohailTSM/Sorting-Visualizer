@@ -3,19 +3,90 @@ import { useRecoilState } from 'recoil';
 import { algorithmState } from '../atoms/algorithmState';
 import { sortingState } from '../atoms/sortingState';
 import { arraySizeState } from '../atoms/arraySizeState';
-import { generateNewArray } from '../helper/array';
+import { generateNewArray, swap } from '../helper/array';
 import { arrayState } from '../atoms/arrayState';
+import { bubbleSort } from '../algorithms/bubbleSort';
+
 const Navbar = () => {
   const [algorithm, setAlgorithm] = useRecoilState(algorithmState);
   const [isSorting, setIsSorting] = useRecoilState(sortingState);
   const [arraySize, setArraySize] = useRecoilState(arraySizeState);
   const [array, setArray] = useRecoilState(arrayState);
 
-  const sort = () => {
+  const visualize = async (moves) => {
+    let intervalTime = ((150 - arraySize) / 146) * 500 + 100;
+    let counter = 0;
+    let interval = setInterval(() => {
+      if (counter < moves.length) {
+        let move = moves[counter];
+        console.log(move);
+        setArray((arr) => {
+          return arr.map((element, index) => {
+            if (index == move[0] || index == move[1]) {
+              return { ...element, classType: 1 };
+            } else {
+              return element;
+            }
+          });
+        });
+        if (move[2]) {
+          setTimeout(() => {
+            setArray((arr) => {
+              let temp;
+              return arr.map((element, index) => {
+                if (index == move[0]) {
+                  temp = element.value;
+                  return {
+                    ...element,
+                    value: arr[move[1]].value,
+                    classType: 3,
+                  };
+                } else if (index == move[1]) {
+                  return { ...element, value: temp, classType: 3 };
+                } else {
+                  return element;
+                }
+              });
+            });
+          }, intervalTime / 2);
+        }
+        setTimeout(() => {
+          setArray((arr) => {
+            return arr.map((element, index) => {
+              if (index == move[0] || index == move[1]) {
+                return { ...element, classType: 0 };
+              } else {
+                return element;
+              }
+            });
+          });
+        }, intervalTime);
+        counter++;
+      } else {
+        setTimeout(() => {
+          setIsSorting(false);
+          clearInterval(interval);
+        }, 100);
+      }
+    }, intervalTime + 100);
+  };
+
+  const sort = async () => {
     if (isSorting) {
       return;
     }
     setIsSorting(true);
+    const list = array.map((element) => element.value);
+    let moves = [];
+    switch (algorithm) {
+      case 'B':
+        moves = await bubbleSort(list);
+        break;
+
+      default:
+        break;
+    }
+    await visualize(moves);
   };
 
   const generate = () => {
