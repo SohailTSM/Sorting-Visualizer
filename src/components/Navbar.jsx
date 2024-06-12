@@ -93,8 +93,6 @@ const Navbar = () => {
       case 'B':
         moves = await bubbleSort(list);
         break;
-      case 'H':
-        break;
       case 'M':
         break;
       case 'Q':
@@ -168,24 +166,6 @@ const Navbar = () => {
             }}
           >
             Bubble Sort
-          </span>{' '}
-          &nbsp; &nbsp; &nbsp;-&nbsp; &nbsp; &nbsp;
-          <span
-            className={`${
-              algorithm == 'H'
-                ? 'scale-110 text-lightblue'
-                : isSorting
-                ? 'text-red-600'
-                : 'hover:text-blue-600 hover:cursor-pointer hover:scale-110'
-            }`}
-            onClick={() => {
-              if (isSorting) {
-                return;
-              }
-              setAlgorithm('H');
-            }}
-          >
-            Heap Sort
           </span>{' '}
           &nbsp; &nbsp; &nbsp;-&nbsp; &nbsp; &nbsp;
           <span
