@@ -6,6 +6,7 @@ import { arraySizeState } from '../atoms/arraySizeState';
 import { generateNewArray, swap } from '../helper/array';
 import { arrayState } from '../atoms/arrayState';
 import { bubbleSort } from '../algorithms/bubbleSort';
+import { quickSort } from '../algorithms/quickSort';
 
 const Navbar = () => {
   const [algorithm, setAlgorithm] = useRecoilState(algorithmState);
@@ -19,7 +20,6 @@ const Navbar = () => {
     let interval = setInterval(() => {
       if (counter < moves.length) {
         let move = moves[counter];
-        console.log(move);
         setArray((arr) => {
           return arr.map((element, index) => {
             if (index == move[0] || index == move[1]) {
@@ -29,6 +29,17 @@ const Navbar = () => {
             }
           });
         });
+        if (move[3] != null) {
+          setArray((arr) => {
+            return arr.map((element, index) => {
+              if (index == move[3]) {
+                return { ...element, classType: 4 };
+              } else {
+                return element;
+              }
+            });
+          });
+        }
         if (move[2]) {
           setTimeout(() => {
             setArray((arr) => {
@@ -82,7 +93,13 @@ const Navbar = () => {
       case 'B':
         moves = await bubbleSort(list);
         break;
-
+      case 'H':
+        break;
+      case 'M':
+        break;
+      case 'Q':
+        moves = await quickSort(list);
+        break;
       default:
         break;
     }

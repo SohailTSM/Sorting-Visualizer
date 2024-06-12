@@ -22,6 +22,10 @@ const Visualizer = () => {
         break;
       case 3:
         className = 'bg-red-500';
+        break;
+      case 4:
+        className = 'bg-amber-600';
+        break;
       default:
         break;
     }
@@ -40,7 +44,8 @@ const Visualizer = () => {
         return (
           <div key={index}>
             {array.length < 40 ? (
-              <div className='text-black text-center font-medium text-base'>
+              <div className='flex flex-col text-black text-center font-medium text-base'>
+                <span>{element.classType == 4 ? 'PIVOT' : ''}</span>
                 {element.value}
               </div>
             ) : (
