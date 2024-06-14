@@ -7,6 +7,7 @@ import { generateNewArray, swap } from '../helper/array';
 import { arrayState } from '../atoms/arrayState';
 import { bubbleSort } from '../algorithms/bubbleSort';
 import { quickSort } from '../algorithms/quickSort';
+import { heapSort } from '../algorithms/heapSort';
 
 const Navbar = () => {
   const [algorithm, setAlgorithm] = useRecoilState(algorithmState);
@@ -114,6 +115,9 @@ const Navbar = () => {
       case 'Q':
         moves = await quickSort(list);
         break;
+      case 'H':
+        moves = await heapSort(list);
+        break;
       default:
         break;
     }
@@ -182,6 +186,24 @@ const Navbar = () => {
             }}
           >
             Bubble Sort
+          </span>{' '}
+          &nbsp; &nbsp; &nbsp;-&nbsp; &nbsp; &nbsp;
+          <span
+            className={`${
+              algorithm == 'H'
+                ? 'scale-110 text-lightblue'
+                : isSorting
+                ? 'text-red-600'
+                : 'hover:text-blue-600 hover:cursor-pointer hover:scale-110'
+            }`}
+            onClick={() => {
+              if (isSorting) {
+                return;
+              }
+              setAlgorithm('H');
+            }}
+          >
+            Heap Sort
           </span>{' '}
           &nbsp; &nbsp; &nbsp;-&nbsp; &nbsp; &nbsp;
           <span

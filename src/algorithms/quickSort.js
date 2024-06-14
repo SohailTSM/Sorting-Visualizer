@@ -8,24 +8,24 @@ const partition = (arr, low, high, moves) => {
     j = high;
   while (i < j) {
     while (arr[i] <= pivot && i < high) {
-      i++;
       moves.push([low, i, !SWAP, low]);
+      i++;
     }
     while (arr[j] > pivot && j > low) {
-      j--;
       moves.push([low, j, !SWAP, low]);
+      j--;
     }
     if (i < j) {
-      swap(arr, i, j);
       moves.push([i, j, SWAP, null]);
+      swap(arr, i, j);
     }
   }
   if (low != j) {
-    swap(arr, low, j);
     moves.push([low, j, SWAP, null, 'D']);
-  } else {
     swap(arr, low, j);
+  } else {
     moves.push([low, j, !SWAP, null, 'D']);
+    swap(arr, low, j);
   }
   return j;
 };
